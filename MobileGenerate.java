@@ -19,15 +19,16 @@ public class MobileGenerate {
 			String path = MobileGenerate.class.getResource("/mobiledata.txt").toString().substring(5);
 			File file = new File(path);
 			List<String> list = FileUtils.readLines(file);
-			int i =1;
+			long i =1;
+//			String str = list.get(0);
 			for (String str : list) {
 				if(str != null && !str.equals("")){
-				String mobile = str.split("	")[0];
-				String area = str.split("	")[1];
+				String mobile = str.substring(0, 8);
+				String area = str.substring(8).trim();
 				JSONObject json = new JSONObject();
 				json.put("mobile", mobile);
 				json.put("area", area);
-				log.info("进度=>"+i+"moible => " + json.toString());
+				log.info("进度=>"+i+",moible => " + json.toString());
 				FileUtils.writeStringToFile(new File(PATH + mobile + ".json"), json.toString(), "UTF-8");
 				i++;
 				}
